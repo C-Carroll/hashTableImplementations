@@ -31,6 +31,7 @@ class HashTable { // get O(1), set O(1), deleteKey O(1)
 
 
   insert(key, value) {
+    if( this.count / this.capacity >= 0.7) this.resize()
     let index = this.hashMod(key);
     let curr = this.data[index];
     while (curr) {
@@ -66,7 +67,7 @@ class HashTable { // get O(1), set O(1), deleteKey O(1)
     this.data = new Array(this.capacity).fill(null);
     this.count = 0
 
-    console.log(old + "--old array--")
+    //console.log(old + "--old array--")
     for(let i = 0; i < old.length; i++){
       let pos = old[i]
       while(pos) {
@@ -74,14 +75,30 @@ class HashTable { // get O(1), set O(1), deleteKey O(1)
         pos = pos.next
       }
 
-      console.log(this.data + "--- new arr---")
+      //console.log(this.data + "--- new arr---")
     }
    }
-  
+
 
 
   delete(key) {
-    // Your code here
+    let hashModKey = this.hashMod(key);
+    let currentNode = this.data[hashModKey];
+
+    if(currentNode && currentNode.key === key){
+      this.data[hashModKey] = this.data[hashModKey].next
+      this.count--;
+      return
+    }
+
+    while(currentNode){
+      if(currentNode.next && currentNode.next.key === key){
+        currentNode.next = currentNode.next.next
+        this.count--;
+      }
+      currentNode = currentNode.next;
+    }
+    return `Key not found`
   }
 }
 
