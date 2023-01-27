@@ -49,14 +49,23 @@ class HashTable { // get O(1), set O(1), deleteKey O(1)
 
 
   read(key) {
-    let arrPos = this.data[this.hashMod(key)]
-    while (arrPos.next && arrPos.key !== key) {
-      arrPos = arrPos.next
-    }
-    if(arrPos.key === key){
-    return arrPos.value}
-    else{
-      return undefined
+    // let arrPos = this.data[this.hashMod(key)]
+    // while (arrPos.next && arrPos.key !== key) {
+    //   arrPos = arrPos.next
+    // }
+    // if(arrPos.key === key){
+    // return arrPos.value}
+    // else{
+    //   return undefined
+    // }
+    let index = this.hashMod(key);
+    let curr = this.data[index]
+
+    while (curr) {
+      if (curr.key === key){
+        return curr.value
+      }
+      curr = curr.next
     }
   }
 
