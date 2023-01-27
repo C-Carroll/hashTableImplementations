@@ -21,18 +21,11 @@ function commonElements(arr1, arr2) {
 
 
 function duplicate(arr) {
-  //splice out i
-  // check if spliced arr includes i
-  let arr2 = arr.slice()
-  const set = new Set(arr)
-  let res = []
-  for(let i = arr2.length-1; i >= 0; i--){
-    let thisNum = arr2.pop()
-    if (set.has(thisNum)) {
-      return thisNum
-    }
-  }
-  
+ let count = {}
+ for (let i = 0; i < arr.length; i ++){
+  if (count[arr[i]]) return arr[i]
+  else count[arr[i]] = 1
+ }
 
 }
 
